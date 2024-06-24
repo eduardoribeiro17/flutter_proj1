@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:proj1/components/appbar.dart';
+import 'package:proj1/data/task_inherited.dart';
 
 class FormPage extends StatefulWidget {
-  const FormPage({super.key});
+  const FormPage({super.key, required this.taskContext});
+  final BuildContext taskContext;
 
   @override
   State<FormPage> createState() => _FormPageState();
@@ -109,12 +111,17 @@ class _FormPageState extends State<FormPage> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Formulário Validado!'),
-                          ),
+                        TaskInherited.of(widget.taskContext)!.addNewTask(
+                          nameController.text,
+                          imageController.text,
+                          int.parse(difficultController.text),
                         );
-                        print(difficultController.text);
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Nova Tarefa Criada!')),
+                        );
+
+                        Navigator.pop(context);
                       }
                     },
                     child: const Text('Adicionar'),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:proj1/pages/form_page.dart';
-// import 'package:proj1/pages/home_page.dart';
+import 'package:proj1/data/task_inherited.dart';
+// import 'package:proj1/pages/form_page.dart';
+import 'package:proj1/pages/home_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const FormPage(),
+      home: TaskInherited(child: const HomePage()),
     );
   }
 }
