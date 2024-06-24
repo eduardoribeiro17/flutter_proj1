@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proj1/components/appbar.dart';
 import 'package:proj1/components/task.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,10 +15,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tasks', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.blue,
-      ),
+      appBar: const MyAppBar(title: 'Tasks'),
       body: AnimatedOpacity(
         opacity: myOpacity ? 1 : 0,
         duration: const Duration(milliseconds: 800),
