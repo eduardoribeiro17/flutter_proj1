@@ -17,6 +17,19 @@ class _FormPageState extends State<FormPage> {
 
   final _formKey = GlobalKey<FormState>();
 
+  bool valueValidator(String? value) => value != null && value.isEmpty;
+  bool diffValidator(value) {
+    if (value != null && value.isEmpty) {
+      return true;
+    } else {
+      if (int.parse(value) > 5 || int.parse(value) < 1) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -38,8 +51,9 @@ class _FormPageState extends State<FormPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
-                      validator: (String? value) =>
-                          value!.isEmpty ? 'Insira o nome da tarefa' : null,
+                      validator: (String? value) => valueValidator(value)
+                          ? 'Insira o nome da tarefa'
+                          : null,
                       controller: nameController,
                       textAlign: TextAlign.start,
                       decoration: const InputDecoration(
@@ -53,9 +67,7 @@ class _FormPageState extends State<FormPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
-                      validator: (value) => value!.isEmpty ||
-                              int.parse(value) > 5 ||
-                              int.parse(value) < 1
+                      validator: (value) => diffValidator(value)
                           ? 'Insira uma dificuldade entre 1 e 5'
                           : null,
                       keyboardType: TextInputType.number,
@@ -73,8 +85,9 @@ class _FormPageState extends State<FormPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       onChanged: (value) => setState(() {}),
-                      validator: (String? value) =>
-                          value!.isEmpty ? 'Insira uma url de imagem' : null,
+                      validator: (String? value) => valueValidator(value)
+                          ? 'Insira uma url de imagem'
+                          : null,
                       keyboardType: TextInputType.url,
                       controller: imageController,
                       textAlign: TextAlign.start,

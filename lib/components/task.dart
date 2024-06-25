@@ -6,15 +6,15 @@ class Task extends StatefulWidget {
   final String photo;
   final int difficult;
 
-  const Task(this.textTask, this.photo, this.difficult, {super.key});
+  Task(this.textTask, this.photo, this.difficult, {super.key});
+
+  int level = 0;
 
   @override
   State<Task> createState() => _TaskState();
 }
 
 class _TaskState extends State<Task> {
-  int level = 0;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -78,7 +78,7 @@ class _TaskState extends State<Task> {
                       width: 70,
                       height: 64,
                       child: ElevatedButton(
-                        onPressed: () => setState(() => level++),
+                        onPressed: () => setState(() => widget.level++),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue[300],
                         ),
@@ -111,12 +111,12 @@ class _TaskState extends State<Task> {
                       child: LinearProgressIndicator(
                         color: Colors.orange,
                         value: (widget.difficult > 0)
-                            ? (level / widget.difficult) / 10
+                            ? (widget.level / widget.difficult) / 10
                             : 1,
                       ),
                     ),
                     Text(
-                      'Nivel $level',
+                      'Nivel ${widget.level}',
                       style: const TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ],
