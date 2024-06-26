@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proj1/components/appbar.dart';
+import 'package:proj1/components/task.dart';
+import 'package:proj1/data/task_dao.dart';
 import 'package:proj1/data/task_inherited.dart';
 
 class FormPage extends StatefulWidget {
@@ -35,7 +37,7 @@ class _FormPageState extends State<FormPage> {
     return Form(
       key: _formKey,
       child: Scaffold(
-        appBar: const MyAppBar(title: 'Nova tarefa'),
+        appBar: const MyAppBar(title: 'Nova tarefa', hasAction: false),
         body: Center(
           child: SingleChildScrollView(
             child: Container(
@@ -124,11 +126,11 @@ class _FormPageState extends State<FormPage> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        TaskInherited.of(widget.taskContext)!.addNewTask(
+                        TaskDao().saveOrUpdate(Task(
                           nameController.text,
                           imageController.text,
                           int.parse(difficultController.text),
-                        );
+                        ));
 
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('Nova Tarefa Criada!')),
